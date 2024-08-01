@@ -95,7 +95,7 @@ const logined = async(req,res) =>{
             return res.status(401).json({error:"Unuathorized - No Token Provided"});
         }
 
-        const decoded = jwt.verify(token,process.env.JWT_SECRET);
+        const decoded = jwt.verify(token,"ZxxWQCa3EI/yB26626Qwr1vGsRPDHv0E6JGGZUe/ho0=");
         if(!decoded){
             return res.status(401).json({error:"Unuathorized - No Token Provided"});
         }
@@ -110,7 +110,7 @@ const logined = async(req,res) =>{
         res.status(200).json({message:"logged in"});
 
     } catch (error) {
-        console.log("error at middleware protect route",error.message);
+        console.log("error at logout protect route",error.message);
         res.status(500).json({error:"Internal server error"});
     }
 }
