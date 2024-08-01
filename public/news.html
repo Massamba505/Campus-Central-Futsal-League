@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>News - Campus Central Futsal League</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .news-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">News</h2>
+        <div class="news-container" id="newsList"></div>
+    </div>
+
+    <script>
+        async function fetchNews() {
+            const blobServiceUrl = 'https://ritanzwe.blob.core.windows.net/';
+            const containerName = 'text'; // Make sure this matches your container name
+            const sasToken = 'sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-08-01T20:36:10Z&st=2024-08-01T12:36:10Z&spr=https&sig=N8sW8wYhUhpQK2EIm5jX%2FImIb5t7KiLsk6Ctrd%2FLrm0%3D'; // Your SAS token
+            
+            // URL to fetch the list of blobs in the container
+            const listUrl = `${blobServiceUrl}${containerName}?restype=container&comp=list&${sasToken}`;
+
+            try {
+                const response = await fetch(listUrl);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch list of news: ${response.statusText}`);
+                }
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(text, 'application/xml');
+                const blobs = xml.getElementsByTagName('Blob');
+
+                const newsList = document.getElementById('newsList');
+                newsList.innerHTML = '';
+
+                for (let i = 0; i < blobs.length; i++) {
+                    const blobName = blobs[i].getElementsByTagName('Name')[0].textContent;
+                    const newsUrl = `${blobServiceUrl}${containerName}/${blobName}?${sasToken}`;
+                    
+                    // Fetch news content
+                    const newsContentResponse = await fetch(newsUrl);
+                    const newsContent = await newsContentResponse.text();
+
+                    const newsItem = document.createElement('div');
+                    newsItem.classList.add('news-item', 'mb-4');
+                    newsItem.innerHTML = `<h4>${blobName.replace('.txt', '').replace(/_/g, ' ')}</h4><p>${newsContent}</p>`;
+                    newsList.appendChild(newsItem);
+                }
+            } catch (error) {
+                console.error('Error retrieving news:', error);
+            }
+        }
+
+        // Initial load of news
+        fetchNews();
+    </script>
+</body>
+</html>
