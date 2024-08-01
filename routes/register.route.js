@@ -1,6 +1,6 @@
-var express = require('express');
+const express = require('express');
 const { TeamReg, PlayerReg } = require('../controllers/register.controller');
-var router = express.Router();
+const router = express.Router();
 
 // Register a new team
 router.post("/team",TeamReg);
