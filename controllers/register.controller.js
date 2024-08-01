@@ -4,14 +4,15 @@ const Player = require("../models/player.model");
 const PlayerReg =  async (req, res) => {
     try {
         const { name, surname, teamId } = req.body;
-        const photo = req.file ? req.file.path : null;
+        let photo = req.file ? req.file.path : null;
   
         if (!name || !teamId || !surname) {
             return res.status(400).json({ error: "name, surname and team ID are required." });
         }
   
         if(!photo){
-          photo = `https://eu.ui-avatars.com/api/?name=${name}+${surname}&size=50`;
+            photo = `public/uploads/dummy.jpg`;
+            console.log("dhjgyuds");
         }
 
         const myTeam = await Team.findOne({name:teamId});
