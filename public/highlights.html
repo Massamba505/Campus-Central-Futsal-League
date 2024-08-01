@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Videos - Campus Central Futsal League</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        #videosList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        #videosList .video-container {
+            flex: 1 1 calc(25% - 16px);
+            max-width: 250px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+        }
+
+        #videosList video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            #videosList .video-container {
+                flex: 1 1 calc(50% - 16px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            #videosList .video-container {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-wrap">
+        <header class="site-navbar py-4" role="banner">
+            <div class="container">
+                <div class="d-flex align-items-center">
+                    <div class="ml-auto">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                                <li><a href="index.html" class="nav-link">Home</a></li>
+                                <li><a href="matches.html" class="nav-link">Matches</a></li>
+                                <li><a href="stats.html" class="nav-link">Stats</a></li>
+                                <li class="active"><a href="videos.html" class="nav-link">Videos</a></li>
+                            </ul>
+                        </nav>
+                        <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"><span class="icon-menu h3 text-white"></span></a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mt-5">
+            <h2 class="mb-4">Match highlights</h2>
+            <div id="videosList" class="row"></div>
+        </div>
+    </div>
+
+    <script>
+        async function displayUploadedVideos() {
+            const videosList = document.getElementById('videosList');
+            videosList.innerHTML = '';
+
+            const blobServiceUrl = 'https://ritanzwe.blob.core.windows.net/';
+            const containerName = 'ritanzwe';
+            const sasToken = 'sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-08-01T20:36:10Z&st=2024-08-01T12:36:10Z&spr=https&sig=N8sW8wYhUhpQK2EIm5jX%2FImIb5t7KiLsk6Ctrd%2FLrm0%3D';
+            const url = `${blobServiceUrl}${containerName}?restype=container&comp=list&${sasToken}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch list of videos: ${response.statusText}`);
+                }
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(text, 'application/xml');
+                const blobs = xml.getElementsByTagName('Blob');
+
+                for (let i = 0; i < blobs.length; i++) {
+                    const blobName = blobs[i].getElementsByTagName('Name')[0].textContent;
+                    const videoUrl = `${blobServiceUrl}${containerName}/${blobName}?${sasToken}`;
+                    const videoContainer = document.createElement('div');
+                    videoContainer.classList.add('video-container');
+                    
+                    const video = document.createElement('video');
+                    video.src = videoUrl;
+                    video.controls = true;
+                    
+                    videoContainer.appendChild(video);
+                    videosList.appendChild(videoContainer);
+                }
+            } catch (error) {
+                console.error('Error retrieving videos:', error);
+            }
+        }
+
+        // Load videos on page load
+        window.onload = displayUploadedVideos;
+    </script>
+</body>
+</html>
