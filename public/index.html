@@ -1,120 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>Campus Central Futsal League</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="fonts/icomoon/style.css" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
     <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <div class="site-wrap">
+  </head>
+  <body>
+    <div class="site-wrap">
       <header class="site-navbar py-4" role="banner">
-          <div class="container">
-              <div class="d-flex align-items-center">
-                  <div class="ml-auto">
-                      <nav class="site-navigation position-relative text-right" role="navigation">
-                          <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                              <li class="active"><a href="index.html" class="nav-link">Home</a></li>
-                              <li><a href="matches.html" class="nav-link">Matches</a></li>
-                              <li><a href="stats.html" class="nav-link">Stats</a></li>
-                              <li><a href="login.html" class="nav-link">Login</a></li>
-                          </ul>
-                      </nav>
-                      <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"><span class="icon-menu h3 text-white"></span></a>
-                  </div>
-              </div>
+        <div class="container">
+          <div class="d-flex align-items-center">
+            <div class="ml-auto">
+              <nav
+                class="site-navigation position-relative text-right"
+                role="navigation"
+              >
+                <ul
+                  class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block"
+                >
+                  <li class="active">
+                    <a href="index.html" class="nav-link">Home</a>
+                  </li>
+                  <li><a href="matches.html" class="nav-link">Matches</a></li>
+                  <li><a href="stats.html" class="nav-link">Stats</a></li>
+                  <li><a href="login.html" class="nav-link">Login</a></li>
+                </ul>
+              </nav>
+              <a
+                href="#"
+                class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"
+                ><span class="icon-menu h3 text-white"></span
+              ></a>
+            </div>
           </div>
+        </div>
       </header>
 
-      <div class="hero overlay" style="background-image: url('images/bg_3.jpg')">
-          <div class="container">
-              <div class="row align-items-center">
-                  <div class="col-lg-6 ml-auto">
-                      <h1 class="text-white">Futsal League</h1>
-                      <p>Campus Central Futsal League</p>
-                  </div>
-              </div>
+      <div
+        class="hero overlay"
+        style="background-image: url('images/back.png')"
+      >
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6 ml-auto">
+              <!-- <h1 class="text-white">Futsal League</h1>
+              <p>Campus Central Futsal League</p> -->
+            </div>
           </div>
+        </div>
       </div>
 
       <div class="site-section bg-dark">
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-12">
-                      <div class="widget-next-match">
-                          <div class="widget-title">
-                              <h3>All Players</h3>
-                          </div>
-                          <div class="widget-body mb-3">
-                              <table class="table custom-table" id="players-table">
-                                  <thead>
-                                      <tr>
-                                          <th>Picture</th>
-                                          <th>Full Name</th>
-                                          <th>Team</th>
-                                          <th>Team Picture</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      <!-- Player data will be loaded here -->
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-                  </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="widget-next-match">
+                <div class="widget-title">
+                  <h3>All Players</h3>
+                </div>
+                <div class="widget-body mb-3">
+                  <table class="table custom-table" id="players-table">
+                    <thead>
+                      <tr>
+                        <th>Picture</th>
+                        <th>Full Name</th>
+                        <th>Team</th>
+                        <th>Team Picture</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Player data will be loaded here -->
+                    </tbody>
+                  </table>
+                </div>
               </div>
+            </div>
           </div>
+        </div>
       </div>
 
       <footer class="footer-section">
-          <div class="container">
-              <div class="row text-center">
-                  <div class="col-md-12">
-                      <div class="pt-5">
-                          <p>
-                              Copyright &copy;
-                              <script>
-                                  document.write(new Date().getFullYear());
-                              </script>
-                              All rights reserved
-                          </p>
-                      </div>
-                  </div>
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-12">
+              <div class="pt-5">
+                <p>
+                  Copyright &copy;
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  All rights reserved
+                </p>
               </div>
+            </div>
           </div>
+        </div>
       </footer>
-  </div>
-  <!-- .site-wrap -->
+    </div>
+    <!-- .site-wrap -->
 
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/main.js"></script>
-  
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch('/allPlayers')
-            .then(response => response.json())
-            .then(players => {
-                const tableBody = document.querySelector('#players-table tbody');
-                console.log(players);
-                players.forEach(player => {
-                    const row = document.createElement('tr');
-                    const Myphoto = player.photo.substring(6);
-                    const MyTeamphoto = player.teamId.logo.substring(6);
-                    row.innerHTML = `
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("/allPlayers")
+          .then((response) => response.json())
+          .then((players) => {
+            const tableBody = document.querySelector("#players-table tbody");
+            console.log(players);
+            players.forEach((player) => {
+              const row = document.createElement("tr");
+              const Myphoto = player.photo.substring(6);
+              const MyTeamphoto = player.teamId.logo.substring(6);
+              row.innerHTML = `
                         <td><img src="../${Myphoto}" alt="${player.fullname}" width="50" /></td>
                         <td>${player.fullname}</td>
                         <td>${player.teamId.name}</td>
                         <td><img src="${MyTeamphoto}" alt="${player.teamId.name}" width="50" /></td>
                     `;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching players:', error));
-    });
-</script>
-</body>
+              tableBody.appendChild(row);
+            });
+          })
+          .catch((error) => console.error("Error fetching players:", error));
+      });
+    </script>
+  </body>
 </html>
