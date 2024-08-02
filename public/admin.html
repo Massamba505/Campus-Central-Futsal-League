@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="css/style.css" />
 
     <style>
-      option {
+      option, #match-id {
           background-color: #222831; 
           color: #fff;
       }
@@ -149,7 +149,7 @@
               </div>
               <button type="submit" class="btn btn-primary">Add Match</button>
           </form>
-        </div>
+          </div>
       
           <div class="col-lg-6 mb-4">
             <h2>Update Player Stats</h2>
@@ -162,56 +162,54 @@
                 <label for="player-goals">Goals</label>
                 <input type="number" value="0" id="player-goals" class="form-control" min="0" required />
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="player-assists">Assists</label>
                 <input type="number" value="0" id="player-assists" class="form-control" min="0" required />
-              </div>
+              </div> -->
               <button type="submit" class="btn btn-primary">Update Stats</button>
             </form>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-lg-6 mb-4">
+            <h1>Edit Match Score</h1>
+            <form id="edit-score-form">
+              <div class="form-group">
+                <label for="match-id">Select Match</label>
+                <select id="match-id" class="form-control" required></select>
+              </div>
+              <div class="form-group">
+                <label for="home-goals">Home Team Goals</label>
+                <input value="0" type="number" id="home-goals" class="form-control" min="0" required />
+              </div>
+              <div class="form-group">
+                <label for="away-goals">Away Team Goals</label>
+                <input value="0" type="number" id="away-goals" class="form-control" min="0" required />
+              </div>
+              <button type="submit" class="btn btn-primary">Update Score</button>
+            </form>
+          </div>
+        </div>
+        
       </div>
       <br><br><br>
 
       <footer class="footer-section">
         <div class="container">
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="widget mb-3">
-                <h3>News</h3>
-                <ul class="list-unstyled links">
-                  <li><a href="#">All</a></li>
-                  <li><a href="#">Club News</a></li>
-                  <li><a href="#">Media Center</a></li>
-                  <li><a href="#">Video</a></li>
-                  <li><a href="#">RSS</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="widget mb-3">
-                <h3>Tickets</h3>
-                <ul class="list-unstyled links">
-                  <li><a href="#">Online Ticket</a></li>
-                  <li><a href="#">Payment and Prices</a></li>
-                  <li><a href="#">Contact & Booking</a></li>
-                  <li><a href="#">Tickets</a></li>
-                  <li><a href="#">Coupon</a></li>
-                </ul>
-              </div>
-            </div>
+          <div class="row d-flex justify-content-center">
             <div class="col-lg-3">
               <div class="widget mb-3">
                 <h3>Matches</h3>
                 <ul class="list-unstyled links">
-                  <li><a href="#">Standings</a></li>
-                  <li><a href="#">World Cup</a></li>
-                  <li><a href="#">La Lega</a></li>
-                  <li><a href="#">Hyper Cup</a></li>
-                  <li><a href="#">World League</a></li>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="matches.html">Matches</a></li>
+                  <li><a href="standing.html">Standings</a></li>
+                  <li><a href="stats.html">Stats</a></li>
                 </ul>
               </div>
             </div>
+
             <div class="col-lg-3">
               <div class="widget mb-3">
                 <h3>Social</h3>
@@ -229,17 +227,20 @@
             <div class="col-md-12">
               <div class="pt-5">
                 <p>
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                   Copyright &copy;
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
                   All rights reserved
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
               </div>
             </div>
           </div>
         </div>
       </footer>
+
     </div>
 
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -308,9 +309,26 @@
         });
       }
 
+      async function fetchMatches() {
+        const response = await fetch('/current-match');
+        const matches = await response.json();
+        const matchSelect = document.getElementById('match-id');
+        matchSelect.innerHTML = "";
+        console.log(matches);
+
+        matches.forEach(match => {
+          const option = document.createElement('option');
+          option.value = match._id; 
+          option.textContent = `${match.fixture.home.name} vs ${match.fixture.away.name}`;
+          matchSelect.appendChild(option);
+        });
+      }
+
+
       document.addEventListener('DOMContentLoaded', () => {
         fetchTeams();
         fetchPlayers();
+        fetchMatches();
       });
 
       document.getElementById('player-form').addEventListener('submit', async function(e) {
@@ -376,17 +394,16 @@
         e.preventDefault();
         const fullname = document.getElementById('select-player').value.trim();
         const goals = document.getElementById('player-goals').value.trim();
-        const assists = document.getElementById('player-assists').value.trim();
+        // const assists = document.getElementById('player-assists').value.trim();
         
-        if (!fullname || !goals || !assists) {
+        if (!fullname || !goals) {
             alert('All fields are required.');
             return;
         }
 
         const data = {
             fullname,
-            goals,
-            assists
+            goals
         };
 
         try {
@@ -453,6 +470,44 @@
         })
       });
 
+      document.getElementById('edit-score-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const matchId = document.getElementById('match-id').value.trim();
+        const homeGoals = document.getElementById('home-goals').value.trim();
+        const awayGoals = document.getElementById('away-goals').value.trim();
+
+        if (!matchId || homeGoals === '' || awayGoals === '') {
+          alert('All fields are required.');
+          return;
+        }
+
+        const data = {
+          homeGoals,
+          awayGoals
+        };
+
+        try {
+          const response = await fetch(`/editMatchScore/${matchId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+
+          if (response.ok) {
+            alert('Match score updated successfully!');
+            document.getElementById('edit-score-form').reset();
+          } else {
+            const errorData = await response.json();
+            alert(`Failed to update score: ${errorData.error || 'Unknown error'}`);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred while updating the score.');
+        }
+      });
     
     </script>
   </body>

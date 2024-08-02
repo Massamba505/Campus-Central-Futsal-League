@@ -42,7 +42,7 @@ const getAllTeams = async (req, res) => {
 
 const editPlayer = async (req, res) => {
     try {
-        const { fullname, goals, assists } = req.body;
+        const { fullname, goals } = req.body;
 
         if (!fullname || !goals || !assists) {
             return res.status(400).json({ error: "All fields (fullname, goals, assists) are required." });
@@ -293,14 +293,39 @@ const currentMatch = async (req, res) => {
         if (!allMatch) {
             return res.status(404).json({ message: 'No match found' });
         }
-
-        res.status(200).json(allMatch);
+        const all = [];
+        all.push(allMatch);
+        res.status(200).json(all);
     } catch (error) {
         console.error('Error fetching upcoming matches:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
+const editMatchScore = async (req, res) => {
+    try {
+      const matchId = req.params.id;
+      const { homeGoals, awayGoals } = req.body;
+  
+      if (!homeGoals || !awayGoals) {
+        return res.status(400).json({ error: 'Both homeGoals and awayGoals are required' });
+      }
+
+      const match = await Match.findByIdAndUpdate(
+        matchId,
+        { homeGoals, awayGoals }
+      );
+  
+      if (!match) {
+        return res.status(404).json({ error: 'Match not found' });
+      }
+  
+      res.status(200).json(match);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+};
 
 module.exports = {
     top_goals_players,
@@ -313,5 +338,6 @@ module.exports = {
     getStandings,
     changeStandings,
     details,
-    currentMatch
+    currentMatch,
+    editMatchScore
 }
