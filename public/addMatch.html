@@ -3,72 +3,55 @@
   <head>
     <title>Off-brand supersport</title>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="fonts/icomoon/style.css" />
-
     <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/owl.carousel.min.css" />
     <link rel="stylesheet" href="css/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
-
     <link rel="stylesheet" href="css/jquery.fancybox.min.css" />
-
     <link rel="stylesheet" href="css/bootstrap-datepicker.css" />
-
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
-
     <link rel="stylesheet" href="css/aos.css" />
-
     <link rel="stylesheet" href="css/style.css" />
 
     <style>
       option {
-          background-color: #222831; 
-          color: #fff;
+        background-color: #222831;
+        color: #fff;
       }
     </style>
-
   </head>
 
   <body>
     <div class="site-wrap">
-      
-    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close">
+          <div class="site-mobile-menu-close">
             <span class="icon-close2 js-menu-toggle"></span>
-        </div>
+          </div>
         </div>
         <div class="site-mobile-menu-body"></div>
-    </div>
+      </div>
 
       <header class="site-navbar py-4" role="banner">
-          <div class="container">
-              <div class="d-flex align-items-center">
-                  <div class="ml-auto">
-                      <nav class="site-navigation position-relative text-right" role="navigation">
-                        <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                          <li><a href="index.html" class="nav-link">Home</a></li>
-                          <li><a href="editStandings.html" class="nav-link">Edit Standings</a></li>
-                          <li><a href="signup.html" class="nav-link">Create User</a></li>
-                          <li class="active"><a href="admin.html" class="nav-link">Admin</a></li>
-                          <li><a id="logout" href="/auth/logout" class="nav-link">logout</a></li>
-                        </ul>
-                      </nav>
-                      <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"><span class="icon-menu h3 text-white"></span></a>
-                  </div>
-              </div>
+        <div class="container">
+          <div class="d-flex align-items-center">
+            <div class="ml-auto">
+              <nav class="site-navigation position-relative text-right" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                  <li><a href="index.html" class="nav-link">Home</a></li>
+                  <li><a href="signup.html" class="nav-link">Create User</a></li>
+                  <li><a href="admin.html" class="nav-link">Admin</a></li>
+                  <li class="active"><a id="logout" href="/auth/logout" class="nav-link">logout</a></li>
+                </ul>
+              </nav>
+              <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"><span class="icon-menu h3 text-white"></span></a>
+            </div>
           </div>
+        </div>
       </header>
 
       <div class="hero overlay py-4" style="background-image: url('images/bg_3.jpg')">
@@ -81,7 +64,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="container"></div>
       <br><br><br>
 
@@ -125,32 +108,35 @@
             </form>
           </div>
         </div>
-        
+
         <!-- Section to Update Player Goals and Assists -->
-        <div class="row">
-          <div class="col-lg-6 mb-4">
-          <h1>Add New Match</h1>
-          <form id="add-match-form">
-              <div class="form-group">
+        <div class="row my-4">
+            <div class="col-lg-6 mb-4">
+              <h1>Add New Match</h1>
+              <form id="add-match-form">
+                <div class="form-group">
                   <label for="home">Team 1</label>
                   <select id="home" class="form-control" required></select>
-              </div>
-              <div class="form-group">
+                </div>
+                <div class="form-group">
                   <label for="away">Team 2</label>
                   <select id="away" class="form-control" required></select>
-              </div>
-              <div class="form-group">
-                  <label for="datetime">Date and Time</label>
-                  <input type="datetime-local" class="form-control" id="datetime" required />
-              </div>
-              <div class="form-group">
+                </div>
+                <div class="form-group">
+                  <label for="date">Date</label>
+                  <input type="date" class="form-control" id="date" required />
+                </div>
+                <div class="form-group">
+                  <label for="time">Time</label>
+                  <input type="time" class="form-control" id="time" required />
+                </div>
+                <div class="form-group">
                   <label for="location">Location</label>
                   <input type="text" class="form-control" id="location" value="CC #1" required />
-              </div>
-              <button type="submit" class="btn btn-primary">Add Match</button>
-          </form>
-        </div>
-      
+                </div>
+                <button type="submit" class="btn btn-primary">Add Match</button>
+              </form>
+            </div>
           <div class="col-lg-6 mb-4">
             <h2>Update Player Stats</h2>
             <form id="update-player-form">
@@ -171,7 +157,8 @@
           </div>
         </div>
       </div>
-      <br><br><br>
+
+      <br><br>
 
       <footer class="footer-section">
         <div class="container">
@@ -213,7 +200,7 @@
               </div>
             </div>
             <div class="col-lg-3">
-              <div class="widget mb-3">
+              <div class="widget">
                 <h3>Social</h3>
                 <ul class="list-unstyled links">
                   <li><a href="#">Twitter</a></li>
@@ -225,15 +212,15 @@
             </div>
           </div>
 
-          <div class="row text-center">
+          <div class="row pt-5 mt-5 text-center">
             <div class="col-md-12">
-              <div class="pt-5">
-                <p>
+              <div class="border-top pt-5">
+                <p class="copyright">
                   Copyright &copy;
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  All rights reserved
+                  All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
                 </p>
               </div>
             </div>
@@ -250,12 +237,9 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.stellar.min.js"></script>
     <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/bootstrap-datepicker.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
     <script src="js/aos.js"></script>
-    <script src="js/jquery.fancybox.min.js"></script>
-    <script src="js/jquery.sticky.js"></script>
-    <script src="js/jquery.mb.YTPlayer.min.js"></script>
     <script src="js/main.js"></script>
 
     <script>
@@ -311,149 +295,152 @@
       document.addEventListener('DOMContentLoaded', () => {
         fetchTeams();
         fetchPlayers();
-      });
 
-      document.getElementById('player-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
+        document.getElementById('player-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('name', document.getElementById('player-name').value);
-        formData.append('surname', document.getElementById('player-surname').value);
-        const teamId = document.getElementById('team-id').value;
-        if (!teamId) {
-          alert('Please select a team.');
-          return;
-        }
-        formData.append('teamId', teamId);
-        formData.append('photo', document.getElementById('player-photo').files[0]);
-
-        try {
-          const response = await fetch('/register/player', {
-            method: 'POST',
-            body: formData
-          });
-
-          if (response.ok) {
-            alert('Player registered successfully!');
-            document.getElementById('player-form').reset();
-            fetchPlayers();
-          } else {
-            const errorData = await response.json();
-            alert(`Failed to register player: ${errorData.error || 'Unknown error'}`);
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          alert('An error occurred while registering the player.');
-        }
-      });
-
-      document.getElementById('team-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('name', document.getElementById('team-name').value);
-        formData.append('logo', document.getElementById('team-logo').files[0]);
-
-        try {
-          const response = await fetch('/register/team', {
-            method: 'POST',
-            body: formData
-          });
-
-          if (response.ok) {
-            alert('Team registered successfully!');
-            document.getElementById('team-form').reset();
-            fetchTeams();
-          } else {
-            alert('Failed to register team.');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      });
-
-      document.getElementById('update-player-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const fullname = document.getElementById('select-player').value.trim();
-        const goals = document.getElementById('player-goals').value.trim();
-        const assists = document.getElementById('player-assists').value.trim();
-        
-        if (!fullname || !goals || !assists) {
-            alert('All fields are required.');
+            const formData = new FormData();
+            formData.append('name', document.getElementById('player-name').value);
+            formData.append('surname', document.getElementById('player-surname').value);
+            const teamId = document.getElementById('team-id').value;
+            if (!teamId) {
+            alert('Please select a team.');
             return;
-        }
+            }
+            formData.append('teamId', teamId);
+            formData.append('photo', document.getElementById('player-photo').files[0]);
 
-        const data = {
-            fullname,
-            goals,
-            assists
-        };
-
-        try {
-            const response = await fetch('/editplayer', {
+            try {
+            const response = await fetch('/register/player', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: formData
             });
 
             if (response.ok) {
-                alert('Player stats updated successfully!');
-                document.getElementById('update-player-form').reset();
+                alert('Player registered successfully!');
+                document.getElementById('player-form').reset();
+                fetchPlayers();
             } else {
                 const errorData = await response.json();
-                alert(`Failed to update player stats: ${errorData.message || 'Unknown error'}`);
+                alert(`Failed to register player: ${errorData.error || 'Unknown error'}`);
             }
-        } catch (error) {
+            } catch (error) {
             console.error('Error:', error);
-            alert('An error occurred while updating player stats.');
-        }
-      });
-      
-      document.getElementById('add-match-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
+            alert('An error occurred while registering the player.');
+            }
+        });
+
+        document.getElementById('team-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('name', document.getElementById('team-name').value);
+            formData.append('logo', document.getElementById('team-logo').files[0]);
+
+            try {
+            const response = await fetch('/register/team', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Team registered successfully!');
+                document.getElementById('team-form').reset();
+                fetchTeams();
+            } else {
+                alert('Failed to register team.');
+            }
+            } catch (error) {
+            console.error('Error:', error);
+            }
+        });
+
+        document.getElementById('update-player-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const fullname = document.getElementById('select-player').value.trim();
+            const goals = document.getElementById('player-goals').value.trim();
+            const assists = document.getElementById('player-assists').value.trim();
+            
+            if (!fullname || !goals || !assists) {
+                alert('All fields are required.');
+                return;
+            }
+
+            const data = {
+                fullname,
+                goals,
+                assists
+            };
+
+            try {
+                const response = await fetch('/editplayer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('Player stats updated successfully!');
+                    document.getElementById('update-player-form').reset();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Failed to update player stats: ${errorData.message || 'Unknown error'}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while updating player stats.');
+            }
+        });
         
-        const data = {
-            home: document.getElementById('home').value,
-            away: document.getElementById('away').value,
-            datetime: document.getElementById('datetime').value,
-            location: document.getElementById('location').value
-        };
+        document.getElementById('add-match-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const data = {
+                "home": document.getElementById('home').value,
+                "away": document.getElementById('away').value,
+                "date": document.getElementById('date').value,
+                "time": document.getElementById('time').value,
+                "location": document.getElementById('location').value,
+            };
 
-        try {
-            const response = await fetch('/addMatches', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
 
-            if (response.ok) {
-                alert('Match added successfully!');
-                document.getElementById('add-match-form').reset();
-            } else {
-                const errorData = await response.json();
-                alert(`Failed to add a match: ${errorData.error || 'Unknown error'}`);
+            try {
+                const response = await fetch('/addMatch', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('Match added successfully!');
+                    document.getElementById('add-match-form').reset();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Failed to add a match: ${errorData.error || 'Unknown error'}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding a match.');
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred while adding a match.');
-        }
-    });
-      
-      document.getElementById('logout').addEventListener('click',()=>{
-        fetch("/auth/logout")
-        .then((res)=>{
-          window.location.href = "index.html";
-        })
-        .catch((error)=>{
-          console.log(error);
-        })
+
+        });
+
+        document.getElementById('logout').addEventListener('click',()=>{
+          fetch("/auth/logout")
+          .then((res)=>{
+            window.location.href = "index.html";
+          })
+          .catch((error)=>{
+            console.log(error);
+          })
       });
 
-    
+      });
     </script>
   </body>
 </html>
+
+

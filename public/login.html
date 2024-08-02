@@ -189,7 +189,6 @@
 
                 if (response.ok) {
                     // Redirect to another page upon successful login
-                    const data = await response.json();
                     window.location.href = '/admin.html'; // Adjust the redirect URL as needed
                 } else {
                     const errorData = await response.json();
