@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin CSV Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: center;
+        }
+        .edit-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mb-4">Edit Team Stats</h1>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>P</th>
+                <th>Team</th>
+                <th>W</th>
+                <th>D</th>
+                <th>L</th>
+                <th>PTS</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- CSV data will be dynamically loaded here -->
+        </tbody>
+    </table>
+    <button id="save-changes" class="btn btn-primary edit-btn">Save Changes</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+<script>
+// Load the CSV file (simulate loading for this example)
+fetch('main.csv')
+    .then(response => response.text())
+    .then(csvText => {
+        let parsedData;
+
+        // Parse CSV data
+        Papa.parse(csvText, {
+            header: true,
+            skipEmptyLines: true,
+            complete: function (results) {
+                parsedData = results.data;
+                renderTable(parsedData);
+            }
+        });
+
+        // Render table with parsed data
+        function renderTable(data) {
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+
+            data.forEach((row, index) => {
+                const rowHtml = `
+                    <tr data-index="${index}">
+                        <td>${index + 1}</td>
+                        <td><input type="text" value="${row.Team}" class="form-control"></td>
+                        <td><input type="number" value="${row.W}" class="form-control"></td>
+                        <td><input type="number" value="${row.D}" class="form-control"></td>
+                        <td><input type="number" value="${row.L}" class="form-control"></td>
+                        <td><input type="number" value="${row.PTS}" class="form-control"></td>
+                        <td><button class="btn btn-danger" onclick="deleteRow(${index})">Delete</button></td>
+                    </tr>`;
+                tableBody.insertAdjacentHTML('beforeend', rowHtml);
+            });
+        }
+
+        // Delete row function
+        window.deleteRow = function(index) {
+            parsedData.splice(index, 1);
+            renderTable(parsedData);
+        }
+
+        // Save changes function
+        document.getElementById('save-changes').addEventListener('click', function() {
+            const rows = document.querySelectorAll('#table-body tr');
+            parsedData = Array.from(rows).map(row => {
+                const cells = row.querySelectorAll('input');
+                return {
+                    Team: cells[0].value,
+                    W: cells[1].value,
+                    D: cells[2].value,
+                    L: cells[3].value,
+                    PTS: cells[4].value,
+                };
+            });
+
+            const updatedCsv = Papa.unparse(parsedData);
+            console.log('Updated CSV Data:', updatedCsv);
+            alert("Changes saved to console (in real application, this would be saved to a file).");
+        });
+    });
+</script>
+
+</body>
+</html>
