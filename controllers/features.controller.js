@@ -44,14 +44,14 @@ const editPlayer = async (req, res) => {
     try {
         const { fullname, goals } = req.body;
 
-        if (!fullname || !goals || !assists) {
+        if (!fullname || !goals ) {
             return res.status(400).json({ error: "All fields (fullname, goals, assists) are required." });
         }
 
         const parsedGoals = parseInt(goals, 10);
-        const parsedAssists = parseInt(assists, 10);
+        // const parsedAssists = parseInt(assists, 10);
 
-        if (isNaN(parsedGoals) || isNaN(parsedAssists)) {
+        if (isNaN(parsedGoals)) {// || isNaN(parsedAssists)
             return res.status(400).json({ error: "Goals and assists must be valid numbers." });
         }
 
@@ -62,7 +62,7 @@ const editPlayer = async (req, res) => {
         }
 
         player.goals = parsedGoals;
-        player.assists = parsedAssists;
+        // player.assists = parsedAssists;
         await player.save();
 
         res.status(200).json({ message: 'Player stats updated successfully.' });

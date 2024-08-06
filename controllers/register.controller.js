@@ -12,7 +12,6 @@ const PlayerReg =  async (req, res) => {
   
         if(!photo){
             photo = `public/uploads/dummy.jpg`;
-            console.log("dhjgyuds");
         }
 
         const myTeam = await Team.findOne({name:teamId});
@@ -21,6 +20,12 @@ const PlayerReg =  async (req, res) => {
         }
   
         const fullname = `${name} ${surname}`;
+
+        const dubFullName = Player.findOne({fullname});
+
+        // if(dubFullName){
+        //     return res.status(400).json({ error: "full name exists" });
+        // } // need to do better
   
         const player = new Player({ fullname, teamId:myTeam._id, photo });
         await player.save();

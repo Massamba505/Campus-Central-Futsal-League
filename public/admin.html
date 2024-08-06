@@ -59,7 +59,7 @@
                       <nav class="site-navigation position-relative text-right" role="navigation">
                         <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                           <li><a href="index.html" class="nav-link">Home</a></li>
-                          <li><a href="editStandings.html" class="nav-link">Edit Standings</a></li>
+                          <!-- <li><a href="editStandings.html" class="nav-link">Edit Standings</a></li> -->
                           <li><a href="signup.html" class="nav-link">Create User</a></li>
                           <li class="active"><a href="admin.html" class="nav-link">Admin</a></li>
                           <li><a id="logout" href="/auth/logout" class="nav-link">logout</a></li>
@@ -128,7 +128,7 @@
         
         <!-- Section to Update Player Goals and Assists -->
         <div class="row">
-          <div class="col-lg-6 mb-4">
+          <!-- <div class="col-lg-6 mb-4">
           <h1>Add New Match</h1>
           <form id="add-match-form">
               <div class="form-group">
@@ -149,7 +149,7 @@
               </div>
               <button type="submit" class="btn btn-primary">Add Match</button>
           </form>
-          </div>
+          </div> -->
       
           <div class="col-lg-6 mb-4">
             <h2>Update Player Stats</h2>
@@ -171,7 +171,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-6 mb-4">
             <h1>Edit Match Score</h1>
             <form id="edit-score-form">
@@ -190,7 +190,7 @@
               <button type="submit" class="btn btn-primary">Update Score</button>
             </form>
           </div>
-        </div>
+        </div> -->
         
       </div>
       <br><br><br>
@@ -203,9 +203,10 @@
                 <h3>Matches</h3>
                 <ul class="list-unstyled links">
                   <li><a href="index.html">Home</a></li>
-                  <li><a href="matches.html">Matches</a></li>
-                  <li><a href="standing.html">Standings</a></li>
+                  <!-- <li><a href="matches.html">Matches</a></li>
+                  <li><a href="standing.html">Standings</a></li> -->
                   <li><a href="stats.html">Stats</a></li>
+                  <li><a href="admin.html">admin</a></li>
                 </ul>
               </div>
             </div>
@@ -273,25 +274,25 @@
           teamSelect.appendChild(option);
         });
 
-        const teamSelectHome = document.getElementById('home');
-        teamSelectHome.innerHTML = "";
+        // const teamSelectHome = document.getElementById('home');
+        // teamSelectHome.innerHTML = "";
 
-        teams.forEach(team => {
-        const option = document.createElement('option');
-        option.value = team.name;
-        option.textContent = team.name;
-        teamSelectHome.appendChild(option);
-        });
+        // teams.forEach(team => {
+        // const option = document.createElement('option');
+        // option.value = team.name;
+        // option.textContent = team.name;
+        // teamSelectHome.appendChild(option);
+        // });
 
-        const teamSelectAway = document.getElementById('away');
-        teamSelectAway.innerHTML = "";
+        // const teamSelectAway = document.getElementById('away');
+        // teamSelectAway.innerHTML = "";
 
-        teams.forEach(team => {
-        const option = document.createElement('option');
-        option.value = team.name;
-        option.textContent = team.name;
-        teamSelectAway.appendChild(option);
-        });
+        // teams.forEach(team => {
+        // const option = document.createElement('option');
+        // option.value = team.name;
+        // option.textContent = team.name;
+        // teamSelectAway.appendChild(option);
+        // });
       }
 
       
@@ -301,7 +302,10 @@
         const playerSelect = document.getElementById('select-player');
         playerSelect.innerHTML = "";
 
-        players.forEach(player => {
+        players.forEach((player,i) => {
+          if(i == 0){
+            document.getElementById("player-goals").value = Number(player.goals);
+          }
           const option = document.createElement('option');
           option.value = player.fullname; // Assuming players have unique IDs
           option.textContent = `${player.fullname}`;
@@ -309,26 +313,26 @@
         });
       }
 
-      async function fetchMatches() {
-        const response = await fetch('/current-match');
-        const matches = await response.json();
-        const matchSelect = document.getElementById('match-id');
-        matchSelect.innerHTML = "";
-        console.log(matches);
+      // async function fetchMatches() {
+      //   const response = await fetch('/current-match');
+      //   const matches = await response.json();
+      //   const matchSelect = document.getElementById('match-id');
+      //   matchSelect.innerHTML = "";
+      //   console.log(matches);
 
-        matches.forEach(match => {
-          const option = document.createElement('option');
-          option.value = match._id; 
-          option.textContent = `${match.fixture.home.name} vs ${match.fixture.away.name}`;
-          matchSelect.appendChild(option);
-        });
-      }
+      //   matches.forEach(match => {
+      //     const option = document.createElement('option');
+      //     option.value = match._id; 
+      //     option.textContent = `${match.fixture.home.name} vs ${match.fixture.away.name}`;
+      //     matchSelect.appendChild(option);
+      //   });
+      // }
 
 
       document.addEventListener('DOMContentLoaded', () => {
         fetchTeams();
         fetchPlayers();
-        fetchMatches();
+        // fetchMatches();
       });
 
       document.getElementById('player-form').addEventListener('submit', async function(e) {
@@ -420,7 +424,7 @@
                 document.getElementById('update-player-form').reset();
             } else {
                 const errorData = await response.json();
-                alert(`Failed to update player stats: ${errorData.message || 'Unknown error'}`);
+                alert(`Failed to update player stats: ${errorData.error || 'Unknown error'}`);
             }
         } catch (error) {
             console.error('Error:', error);
@@ -428,37 +432,37 @@
         }
       });
       
-      document.getElementById('add-match-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
+    //   document.getElementById('add-match-form').addEventListener('submit', async function(e) {
+    //     e.preventDefault();
         
-        const data = {
-            home: document.getElementById('home').value,
-            away: document.getElementById('away').value,
-            datetime: document.getElementById('datetime').value,
-            location: document.getElementById('location').value
-        };
+    //     const data = {
+    //         home: document.getElementById('home').value,
+    //         away: document.getElementById('away').value,
+    //         datetime: document.getElementById('datetime').value,
+    //         location: document.getElementById('location').value
+    //     };
 
-        try {
-            const response = await fetch('/addMatches', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+    //     try {
+    //         const response = await fetch('/addMatches', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(data)
+    //         });
 
-            if (response.ok) {
-                alert('Match added successfully!');
-                document.getElementById('add-match-form').reset();
-            } else {
-                const errorData = await response.json();
-                alert(`Failed to add a match: ${errorData.error || 'Unknown error'}`);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred while adding a match.');
-        }
-    });
+    //         if (response.ok) {
+    //             alert('Match added successfully!');
+    //             document.getElementById('add-match-form').reset();
+    //         } else {
+    //             const errorData = await response.json();
+    //             alert(`Failed to add a match: ${errorData.error || 'Unknown error'}`);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //         alert('An error occurred while adding a match.');
+    //     }
+    // });
       
       document.getElementById('logout').addEventListener('click',()=>{
         fetch("/auth/logout")
@@ -470,45 +474,63 @@
         })
       });
 
-      document.getElementById('edit-score-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
+      // document.getElementById('edit-score-form').addEventListener('submit', async function(e) {
+      //   e.preventDefault();
         
-        const matchId = document.getElementById('match-id').value.trim();
-        const homeGoals = document.getElementById('home-goals').value.trim();
-        const awayGoals = document.getElementById('away-goals').value.trim();
+      //   const matchId = document.getElementById('match-id').value.trim();
+      //   const homeGoals = document.getElementById('home-goals').value.trim();
+      //   const awayGoals = document.getElementById('away-goals').value.trim();
 
-        if (!matchId || homeGoals === '' || awayGoals === '') {
-          alert('All fields are required.');
-          return;
-        }
+      //   if (!matchId || homeGoals === '' || awayGoals === '') {
+      //     alert('All fields are required.');
+      //     return;
+      //   }
 
-        const data = {
-          homeGoals,
-          awayGoals
-        };
+      //   const data = {
+      //     homeGoals,
+      //     awayGoals
+      //   };
 
-        try {
-          const response = await fetch(`/editMatchScore/${matchId}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
+      //   try {
+      //     const response = await fetch(`/editMatchScore/${matchId}`, {
+      //       method: 'POST',
+      //       headers: {
+      //         'Content-Type': 'application/json'
+      //       },
+      //       body: JSON.stringify(data)
+      //     });
 
-          if (response.ok) {
-            alert('Match score updated successfully!');
-            document.getElementById('edit-score-form').reset();
-          } else {
-            const errorData = await response.json();
-            alert(`Failed to update score: ${errorData.error || 'Unknown error'}`);
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          alert('An error occurred while updating the score.');
-        }
-      });
+      //     if (response.ok) {
+      //       alert('Match score updated successfully!');
+      //       document.getElementById('edit-score-form').reset();
+      //     } else {
+      //       const errorData = await response.json();
+      //       alert(`Failed to update score: ${errorData.error || 'Unknown error'}`);
+      //     }
+      //   } catch (error) {
+      //     console.error('Error:', error);
+      //     alert('An error occurred while updating the score.');
+      //   }
+      // });
     
+      document.getElementById('select-player').addEventListener('change', function() {
+        const fullname = document.getElementById('select-player').value.trim();
+        // const goals = document.getElementById('player-goals').value.trim();
+
+          fetch("/allPlayers")
+              .then(response => response.json())
+              .then(players => {
+                players.forEach((player,i) => {
+                  if(player.fullname === fullname){
+                    document.getElementById("player-goals").value = Number(player.goals);
+                  }
+                });
+              })
+              .catch(error => console.error('Error fetching player details:', error));
+      });
+
+
+
     </script>
   </body>
 </html>
